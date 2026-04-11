@@ -41,3 +41,20 @@ exports.deposit = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+exports.getBalance = async (req, res) => {
+  try {
+    const wallet = await Wallet.findOne({ userId: req.user });
+
+    if (!wallet) {
+      return res.status(404).json({ message: "Wallet not found" });
+    }
+
+    res.json({
+      balance: wallet.balance
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
