@@ -1,12 +1,7 @@
-import Balance from "./Balance";
+import WalletPage from "./pages/WalletPage";
 
 function App() {
-  return (
-    <div>
-      <h1>Wallet App</h1>
-      <Balance />
-    </div>
-  );
+  return <WalletPage />;
 }
 
 export default App;
