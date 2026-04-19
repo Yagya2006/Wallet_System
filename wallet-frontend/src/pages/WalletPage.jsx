@@ -27,13 +27,14 @@ function WalletPage() {
   const response = await fetch("http://localhost:5000/withdraw", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount }),
+    body: JSON.stringify({ amount: Number(amount) }),
+
   });
 
   const data = await response.json();
 
   if (!response.ok) {
-    setError(data.error);
+    setError(data.message);
     return;
   }
 
@@ -48,16 +49,17 @@ const handleAddMoney = async () => {
     return;
   }
 
-  const response = await fetch("http://localhost:5000/add", {
+  const response = await fetch("http://localhost:5000/deposit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount }),
+    body: JSON.stringify({ amount: Number(amount) }),
+
   });
 
   const data = await response.json();
 
   if (!response.ok) {
-    setError(data.error);
+    setError(data.message);
     return;
   }
 
@@ -69,7 +71,7 @@ const handleAddMoney = async () => {
 useEffect(() => {
   fetchBalance();
 }, []);
-
+ 
   return (
     <div style={{ padding: "20px" }}>
       
