@@ -2,6 +2,7 @@ import WalletPage from "./pages/WalletPage";
 import HomePage from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
+import LoginPage from "./pages/LoginPage";
 
 import { API_URL } from "./api";
 
@@ -24,6 +25,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/wallet" element={<WalletPage />} />
+        <Route path="/login" element={<LoginPage />} />
+
       </Routes>
     </>
   );

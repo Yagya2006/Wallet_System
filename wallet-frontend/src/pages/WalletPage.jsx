@@ -11,7 +11,13 @@ function WalletPage() {
   const [error, setError] = useState("");
   const fetchBalance = async () => {
     try {
-      const response = await fetch("http://localhost:5000/balance");
+     const response = await fetch("http://localhost:5000/api/wallet/balance", {
+  headers: {
+    "Authorization": `Bearer ${localStorage.getItem("token")}`
+  }
+});
+
+
       const data = await response.json();
       setBalance(data.balance);
     } catch (err) {
@@ -24,12 +30,15 @@ function WalletPage() {
     return;
   }
 
-  const response = await fetch("http://localhost:5000/withdraw", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount: Number(amount) }),
+  const response = await fetch("http://localhost:5000/api/wallet/withdraw", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.getItem("token")}`
+  },
+  body: JSON.stringify({ amount: Number(amount) }),
+});
 
-  });
 
   const data = await response.json();
 
@@ -49,12 +58,16 @@ const handleAddMoney = async () => {
     return;
   }
 
-  const response = await fetch("http://localhost:5000/deposit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount: Number(amount) }),
+  const response = await fetch("http://localhost:5000/api/wallet/deposit", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.getItem("token")}`
+  },
+  body: JSON.stringify({ amount: Number(amount) }),
+});
 
-  });
+
 
   const data = await response.json();
 
