@@ -1,37 +1,32 @@
 import WalletPage from "./pages/WalletPage";
 import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
-import LoginPage from "./pages/LoginPage";
 
-import { API_URL } from "./api";
-
-function testBackend() {
-  console.log("Button clicked!");
-  fetch(`${API_URL}/`)
-    .then(res => res.text())
-    .then(data => console.log("Backend says:", data))
-    .catch(err => console.error("Error:", err));
-}
-
- 
-
+import DashboardLayout from "./layouts/DashboardLayout";
 
 function App() {
   return (
     <>
+      {/* Public pages use Navbar */}
       <Navbar />
-      <button onClick={testBackend}>Test Backend</button>
+
       <Routes>
+        {/* Public routes */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/wallet" element={<WalletPage />} />
         <Route path="/login" element={<LoginPage />} />
 
+        {/* Authenticated routes use DashboardLayout */}
+        <Route element={<DashboardLayout />}>
+          <Route path="/wallet" element={<WalletPage />} />
+          {/* <Route path="/send" element={<SendMoneyPage />} />
+          <Route path="/history" element={<HistoryPage />} />
+          <Route path="/profile" element={<ProfilePage />} /> */}
+        </Route>
       </Routes>
     </>
   );
 }
-
-
 
 export default App;

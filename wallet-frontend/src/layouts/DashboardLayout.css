@@ -1,0 +1,95 @@
+/* Layout container */
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+
+/* Top bar (mobile only) */
+.topbar {
+  display: none;
+  padding: 10px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.hamburger {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: #ffffff;
+  border-right: 1px solid #eee;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+
+.close-btn {
+  display: none;
+  font-size: 22px;
+  background: none;
+  border: none;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+/* Content area */
+.content {
+  flex: 1;
+  margin-left: 240px;
+  padding: 20px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .topbar {
+    display: block;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .close-btn {
+    display: block;
+  }
+
+  .content {
+    margin-left: 0;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+  }
+}
