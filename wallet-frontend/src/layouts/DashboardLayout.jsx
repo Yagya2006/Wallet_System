@@ -1,4 +1,5 @@
 import "./DashboardLayout.css";
+import { NavLink } from "react-router-dom";
 
 import { Outlet, Link } from "react-router-dom";
 import { useState } from "react";
@@ -23,9 +24,15 @@ export default function DashboardLayout() {
         </button>
 
         <nav>
-          <Link to="/wallet">Dashboard</Link>
+          <NavLink to="/wallet" className={({ isActive }) => isActive ? "active" : ""}>
+  Dashboard
+</NavLink>
+
           <Link to="/send">Send Money</Link>
-          <Link to="/history">Transaction History</Link>
+          <NavLink to="/history" className={({ isActive }) => isActive ? "active" : ""}>
+  Transaction History
+</NavLink>
+
           <Link to="/profile">Profile</Link>
           <Link to="/logout">Logout</Link>
         </nav>

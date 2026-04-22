@@ -1,0 +1,16 @@
+:root {
+  /* Primary Brand Colors */
+  --primary: #2D6CDF;
+  --primary-dark: #1B4FA0;
+
+  /* Neutrals */
+  --bg-light: #F5F7FA;
+  --white: #FFFFFF;
+  --border: #E5E7EB;
+  --text-dark: #111827;
+
+  /* Accents */
+  --success: #22C55E;
+  --error: #EF4444;
+  --warning: #F59E0B;
+}
