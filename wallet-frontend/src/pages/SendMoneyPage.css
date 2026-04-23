@@ -1,0 +1,44 @@
+.send-container {
+  padding: 20px 30px;
+}
+
+.send-container h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.send-container label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #444;
+}
+
+.send-container input {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 18px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.send-container button {
+  padding: 10px 20px;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.send-container button:hover {
+  background: #3a7ac4;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}

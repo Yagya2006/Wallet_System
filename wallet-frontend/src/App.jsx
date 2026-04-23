@@ -2,6 +2,7 @@ import WalletPage from "./pages/WalletPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import HistoryPage from "./pages/HistoryPage";
+import SendMoneyPage from "./pages/SendMoneyPage";
 
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -23,7 +24,7 @@ function App() {
         {/* Authenticated routes use DashboardLayout */}
         <Route element={<DashboardLayout />}>
           <Route path="/wallet" element={<WalletPage />} />
-          {/* <Route path="/send" element={<SendMoneyPage />} /> */}
+          <Route path="/send" element={<SendMoneyPage />} />
           <Route path="/history" element={<HistoryPage />} />
           {/* <Route path="/profile" element={<ProfilePage />} />  */}
         </Route>

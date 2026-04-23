@@ -83,42 +83,6 @@ const handleAddMoney = async () => {
   setAmount("");
 };
 
-const handleTransfer = async () => {
-  if (!receiverId) {
-    setError("Receiver ID is required");
-    return;
-  }
-
-  if (!amount || isNaN(amount) || Number(amount) <= 0) {
-    setError("Enter a valid amount");
-    return;
-  }
-
-  const response = await fetch("http://localhost:5000/api/wallet/transfer", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
-    },
-    body: JSON.stringify({
-      receiverId,
-      amount: Number(amount)
-    })
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    setError(data.message);
-    return;
-  }
-
-  setError("");
-  fetchBalance();
-  setAmount("");
-  setReceiverId("");
-};
-
 
 useEffect(() => {
   const token = localStorage.getItem("token");
@@ -135,12 +99,7 @@ useEffect(() => {
     <div style={{ padding: "20px" }}>
       <h1>Wallet App</h1>
      <p>Balance: £{balance}</p>
-      <input
-  value={receiverId}
-  onChange={(e) => setReceiverId(e.target.value)}
-  placeholder="Enter receiver userId"
-/>
-    <button onClick={handleTransfer}>Transfer</button>
+      
 
       <input
         value={amount}
