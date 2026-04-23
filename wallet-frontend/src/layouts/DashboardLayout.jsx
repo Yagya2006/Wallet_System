@@ -6,6 +6,10 @@ import { useState } from "react";
 
 export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  window.location.href = "/login";
+};
 
   return (
     <div className="dashboard-layout">
@@ -34,7 +38,11 @@ export default function DashboardLayout() {
 </NavLink>
 
           <Link to="/profile">Profile</Link>
-          <Link to="/logout">Logout</Link>
+          <span onClick={handleLogout} className="logout-link">
+  Logout
+</span>
+
+
         </nav>
       </div>
 

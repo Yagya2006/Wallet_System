@@ -16,8 +16,9 @@ function App() {
 
       <Routes>
         {/* Public routes */}
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element={<HomePage />} />
 
         {/* Authenticated routes use DashboardLayout */}
         <Route element={<DashboardLayout />}>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "./LoginPage.css";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +27,8 @@ function LoginPage() {
   };
 
   return (
-    <div>
+  <div className="login-page">
+    <div className="login-card">
       <h1>Login</h1>
 
       <input 
@@ -45,9 +46,10 @@ function LoginPage() {
 
       <button onClick={handleLogin}>Login</button>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
     </div>
-  );
+  </div>
+);
 }
 
 export default LoginPage;

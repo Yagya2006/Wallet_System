@@ -130,16 +130,9 @@ useEffect(() => {
 }, []);
 
  
-const handleLogout = () => {
-  localStorage.removeItem("token");
-  window.location.href = "/login";
-};
-
-
 
   return (
     <div style={{ padding: "20px" }}>
-      <button onClick={handleLogout}>Logout</button>
       <h1>Wallet App</h1>
      <p>Balance: £{balance}</p>
       <input
