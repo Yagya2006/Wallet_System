@@ -22,7 +22,8 @@ router.post("/withdraw", authMiddleware, withdraw);
 router.get("/balance", authMiddleware, getBalance);
 router.get("/transactions", authMiddleware, getTransactions);
 router.post("/transfer", authMiddleware, transfer);
-module.exports = router;
+
 
 const Transaction = require("../models/Transaction");
 
+module.exports = router;

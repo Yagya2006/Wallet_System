@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
-
+import "./WalletPage.css";
 import Balance from "../Balance";
 
 
@@ -96,23 +96,34 @@ useEffect(() => {
  
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Wallet App</h1>
-     <p>Balance: £{balance}</p>
-      
+  <div className="wallet-page">
 
+    <h1 className="wallet-title">Wallet App</h1>
+
+    {/* Balance Card */}
+    <div className="balance-card">
+      <p className="balance-label">Current Balance</p>
+      <h2 className="balance-amount">£{balance}</h2>
+    </div>
+
+    {/* Amount Input */}
+    <div className="amount-section">
       <input
+        className="amount-input"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         placeholder="Enter amount"
       />
-
-      <button onClick={handleAddMoney}>Add Money</button>
-      <button onClick={handleWithdraw}>Withdraw</button>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
     </div>
-  );
+
+    {/* Action Buttons */}
+    <div className="action-buttons">
+      <button className="add-btn" onClick={handleAddMoney}>Add Money</button>
+      <button className="withdraw-btn" onClick={handleWithdraw}>Withdraw</button>
+    </div>
+
+    {error && <p className="error">{error}</p>}
+  </div>
+);
 }
 export default WalletPage;

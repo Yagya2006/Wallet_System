@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Wallet = require("../models/Wallet");
 const Transaction = require("../models/Transaction");
-
+const User = require("../models/User");
 // ---------------------------
 // GET BALANCE
 // ---------------------------
@@ -134,59 +134,51 @@ exports.transfer = async (req, res) => {
   session.startTransaction();
 
   try {
-    const { receiverId, amount } = req.body;
+    const { receiverEmail, amount } = req.body;
     const senderId = req.user.id;
 
     // Validate amount
     if (!amount || amount <= 0) {
-      await session.abortTransaction();
-      session.endSession();
       return res.status(400).json({ message: "Invalid amount" });
     }
 
-    // Cannot transfer to self
-    if (senderId === receiverId) {
-      await session.abortTransaction();
-      session.endSession();
+    // Find receiver user
+    const receiverUser = await User.findOne({ email: receiverEmail });
+    if (!receiverUser) {
+      return res.status(404).json({ message: "Receiver not found" });
+    }
+
+    // Prevent self-transfer
+    if (receiverUser._id.toString() === senderId) {
       return res.status(400).json({ message: "Cannot transfer to yourself" });
     }
 
     // Fetch sender wallet
     const senderWallet = await Wallet.findOne({ userId: senderId }).session(session);
     if (!senderWallet) {
-      await session.abortTransaction();
-      session.endSession();
       return res.status(404).json({ message: "Sender wallet not found" });
     }
 
     // Fetch receiver wallet
-    const receiverWallet = await Wallet.findOne({ userId: receiverId }).session(session);
+    const receiverWallet = await Wallet.findOne({ userId: receiverUser._id }).session(session);
     if (!receiverWallet) {
-      await session.abortTransaction();
-      session.endSession();
       return res.status(404).json({ message: "Receiver wallet not found" });
     }
 
     // Check balance
     if (senderWallet.balance < amount) {
-      await session.abortTransaction();
-      session.endSession();
       return res.status(400).json({ message: "Insufficient balance" });
     }
 
-    // Calculate balances
+    // Store previous balances
     const senderPrev = senderWallet.balance;
-    const senderNew = senderPrev - amount;
-
     const receiverPrev = receiverWallet.balance;
-    const receiverNew = receiverPrev + amount;
 
-    // Update sender wallet
-    senderWallet.balance = senderNew;
+    // Update balances
+    senderWallet.balance -= amount;
+    receiverWallet.balance += amount;
+
     await senderWallet.save({ session });
-
-    // Update receiver wallet
-    receiverWallet.balance = receiverNew;
     await receiverWallet.save({ session });
 
     // Log sender transaction
@@ -195,28 +187,26 @@ exports.transfer = async (req, res) => {
       type: "transfer_sent",
       amount,
       previousBalance: senderPrev,
-      newBalance: senderNew,
-      to: receiverId
+      newBalance: senderWallet.balance,
+      to: receiverEmail
     }], { session });
 
     // Log receiver transaction
     await Transaction.create([{
-      userId: receiverId,
+      userId: receiverUser._id,
       type: "transfer_received",
       amount,
       previousBalance: receiverPrev,
-      newBalance: receiverNew,
-      from: senderId
+      newBalance: receiverWallet.balance,
+      from: req.user.email
     }], { session });
 
-    // Commit
     await session.commitTransaction();
     session.endSession();
 
     return res.json({
       message: "Transfer successful",
-      senderBalance: senderNew,
-      receiverBalance: receiverNew
+      balance: senderWallet.balance
     });
 
   } catch (error) {

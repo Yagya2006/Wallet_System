@@ -29,7 +29,7 @@
 
 /* Sidebar container */
 .sidebar {
-  width: 240px;
+  width: 250px;
   background: var(--white);
   border-right: 1px solid var(--border);
   padding: 24px 16px;
@@ -37,6 +37,7 @@
   top: 0;
   bottom: 0;
   left: 0;
+  z-index: 200;
   transform: translateX(0);
   transition: transform 0.3s ease;
   display: flex;

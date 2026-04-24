@@ -1,0 +1,98 @@
+/* Page wrapper */
+.wallet-page {
+  padding: 30px;
+  font-family: sans-serif;
+}
+
+/* Title */
+.wallet-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* Balance Card */
+.balance-card {
+  background: linear-gradient(135deg, #4a90e2, #357ABD);
+  color: white;
+  padding: 25px 30px;
+  border-radius: 16px;
+  width: 320px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
+}
+
+.balance-label {
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+.balance-amount {
+  font-size: 36px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+/* Amount Input */
+.amount-section {
+  margin-bottom: 20px;
+}
+
+.amount-input {
+  width: 250px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.amount-input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px rgba(74, 144, 226, 0.4);
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.add-btn {
+  background: #4caf50;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.add-btn:hover {
+  background: #3e8e41;
+}
+
+.withdraw-btn {
+  background: #e74c3c;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.withdraw-btn:hover {
+  background: #c0392b;
+}
+
+/* Error message */
+.error {
+  color: red;
+  font-size: 14px;
+}

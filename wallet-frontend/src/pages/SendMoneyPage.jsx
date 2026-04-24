@@ -2,14 +2,14 @@ import { useState } from "react";
 import "./SendMoneyPage.css";
 
 function SendMoneyPage() {
-  const [receiverId, setReceiverId] = useState("");
+  const [receiverEmail, setReceiverEmail] = useState("");
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
 
   const handleTransfer = async () => {
     setError("");
 
-    if (!receiverId || !amount) {
+    if (!receiverEmail || !amount) {
       setError("Please fill all fields");
       return;
     }
@@ -24,7 +24,7 @@ function SendMoneyPage() {
           "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-          receiverId,
+          receiverEmail,
           amount: Number(amount)
         })
       });
@@ -37,7 +37,7 @@ function SendMoneyPage() {
       }
 
       // Clear fields on success
-      setReceiverId("");
+      setReceiverEmail("");
       setAmount("");
 
       alert("Transfer successful");
@@ -51,9 +51,9 @@ function SendMoneyPage() {
       <h2>Send Money</h2>
        
       <input
-        placeholder="Enter receiver userId"
-        value={receiverId}
-        onChange={(e) => setReceiverId(e.target.value)}
+        placeholder="Enter receiver email"
+        value={receiverEmail}
+        onChange={(e) => setReceiverEmail(e.target.value)}
       />
 
       <input
