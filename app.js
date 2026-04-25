@@ -15,6 +15,8 @@ app.use("/api/auth", authRoutes);
 
 const walletRoutes = require("./src/routes/walletRoutes");
 app.use("/api/wallet", walletRoutes);
+const savingsRoutes = require("./src/routes/savingsRoutes");
+app.use("/api/savings", savingsRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend is working!");

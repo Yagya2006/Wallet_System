@@ -1,8 +1,13 @@
+import SavingsPreview from "../components/savings/SavingsPreview";
+
 import { useState, useEffect } from "react";
 import Navbar from "../Navbar";
+
 import { Link } from "react-router-dom";
 import "./WalletPage.css";
+
 import Balance from "../Balance";
+
 
 
 function WalletPage() {
@@ -125,5 +130,8 @@ useEffect(() => {
     {error && <p className="error">{error}</p>}
   </div>
 );
+{/* Savings Preview */}
+<SavingsPreview />
+
 }
 export default WalletPage;
