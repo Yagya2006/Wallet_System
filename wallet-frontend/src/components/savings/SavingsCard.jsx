@@ -51,6 +51,13 @@ const SavingsCard = ({ goal, refreshGoals }) => {
       )}
     </div>
   );
+  <button 
+  className="delete-goal-btn"
+  onClick={() => onDelete(goal._id)}
+>
+  Delete
+</button>
+
 };
 
 export default SavingsCard;

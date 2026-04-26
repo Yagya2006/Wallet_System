@@ -1,17 +1,49 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../api";
+import axios from "axios";
 import SavingsCard from "./SavingsCard";
 
 const SavingsPreview = () => {
   const [goals, setGoals] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Load goals from backend
   const loadGoals = async () => {
     try {
-      const res = await axios.get("/savings/goals");
-      const activeGoals = res.data.goals.filter(g => !g.isCompleted);
-      setGoals(activeGoals);
+      const response = await axios.get(
+        "http://localhost:5000/api/savings/goals",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      );
+
+      setGoals(response.data.goals || []);
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
+    }
+  };
+
+  // Delete goal
+  const deleteGoal = async (goalId) => {
+    if (!window.confirm("Are you sure you want to delete this goal?")) return;
+
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/savings/delete/${goalId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      );
+
+      loadGoals(); // refresh UI
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.message || "Error deleting goal");
     }
   };
 
@@ -19,21 +51,22 @@ const SavingsPreview = () => {
     loadGoals();
   }, []);
 
+  if (loading) return <p>Loading goals...</p>;
+
   return (
     <div className="savings-preview">
-      <div className="preview-header">
-        <h3>Savings Goals</h3>
-        <a href="/savings" className="view-all">View All</a>
-      </div>
+      <h3 className="savings-title">Savings Goals</h3>
 
       {goals.length === 0 ? (
         <p>No active goals yet.</p>
       ) : (
-        <div className="preview-goals">
-          {goals.map(goal => (
-            <SavingsCard key={goal._id} goal={goal} refreshGoals={loadGoals} />
-          ))}
-        </div>
+        goals.map((goal) => (
+          <SavingsCard
+            key={goal._id}
+            goal={goal}
+            onDelete={deleteGoal}
+          />
+        ))
       )}
     </div>
   );

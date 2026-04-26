@@ -1,6 +1,7 @@
 const SavingsGoal = require("../models/SavingsGoal");
 const Wallet = require("../models/Wallet");
 
+
 // ---------------------------
 // CREATE GOAL
 // ---------------------------
@@ -11,7 +12,7 @@ exports.createGoal = async (req, res) => {
 
     const goals = await SavingsGoal.find({ userId });
 
-    const activeGoals = goals.filter(g => !g.isCompleted);
+    const activeGoals = goals.filter(g => g.isCompleted===false);
 
     if (activeGoals.length >= 3) {
       return res.status(400).json({
@@ -22,10 +23,12 @@ exports.createGoal = async (req, res) => {
     const goal = await SavingsGoal.create({
       userId,
       name,
-      targetAmount
+      targetAmount,
+      currentAmount: 0,
+      isCompleted: false
     });
 
-    return res.json({ message: "Goal created", goal });
+return res.status(201).json({ message: "Goal created", goal });
 
   } catch (error) {
     console.error(error);
@@ -84,3 +87,28 @@ exports.getGoals = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+// ---------------------------
+// DELETE GOAL
+// ---------------------------
+exports.deleteGoal = async (req, res) => {
+  try {
+    const { goalId } = req.params;
+    const userId = req.user.id;
+
+    const goal = await SavingsGoal.findOne({ _id: goalId, userId });
+
+    if (!goal) {
+      return res.status(404).json({ message: "Goal not found" });
+    }
+
+    await goal.deleteOne();
+
+    return res.status(200).json({ message: "Goal deleted successfully" });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server error deleting goal" });
+  }
+};
+

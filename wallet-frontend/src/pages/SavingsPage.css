@@ -1,0 +1,32 @@
+.savings-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.savings-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.create-goal-btn {
+  width: 100%;
+  padding: 12px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.create-goal-btn:hover {
+  background: #43a047;
+}
+
+.savings-list-container {
+  margin-top: 10px;
+}

@@ -1,5 +1,6 @@
+import "./SavingsPage.css";
 import React, { useEffect, useState } from "react";
-import axios from "../api";
+import axios from "axios";
 import SavingsCard from "../components/savings/SavingsCard";
 import CreateGoalModal from "../components/savings/CreateGoalModal";
 
@@ -9,7 +10,14 @@ const SavingsPage = () => {
 
   const loadGoals = async () => {
     try {
-      const res = await axios.get("/savings/goals");
+const res = await axios.get(
+  "http://localhost:5000/api/savings/goals",
+  {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  }
+);
       setGoals(res.data.goals);
     } catch (error) {
       console.error(error);

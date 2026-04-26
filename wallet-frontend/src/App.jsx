@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import HistoryPage from "./pages/HistoryPage";
 import SendMoneyPage from "./pages/SendMoneyPage";
+import SavingsPage from "./pages/SavingsPage";
 
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -27,6 +28,8 @@ function App() {
           <Route path="/send" element={<SendMoneyPage />} />
           <Route path="/history" element={<HistoryPage />} />
           {/* <Route path="/profile" element={<ProfilePage />} />  */}
+          <Route path="/savings" element={<SavingsPage />} />
+
         </Route>
       </Routes>
     </>

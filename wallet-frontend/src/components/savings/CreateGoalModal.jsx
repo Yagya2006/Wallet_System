@@ -1,19 +1,24 @@
 import React, { useState } from "react";
-import axios from "../../api";
+import axios from "axios";
 
-const CreateGoalModal = ({ close, refreshGoals }) => {
+const CreateGoalModal = ({ onClose }) => {
   const [name, setName] = useState("");
   const [targetAmount, setTargetAmount] = useState("");
 
   const createGoal = async () => {
     try {
-      const res = await axios.post("/savings/create", {
+      await axios.post("http://localhost:5000/api/savings/create", {
         name,
         targetAmount: Number(targetAmount)
+        
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
       });
 
-      refreshGoals();
-      close();
+      onClose();
+      window.location.reload(); // Refresh the page to show the new goal
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || "Error creating goal");
@@ -40,7 +45,7 @@ const CreateGoalModal = ({ close, refreshGoals }) => {
         />
 
         <button onClick={createGoal}>Create</button>
-        <button onClick={close} className="cancel-btn">Cancel</button>
+        <button onClick={onClose} className="cancel-btn">Cancel</button>
       </div>
     </div>
   );

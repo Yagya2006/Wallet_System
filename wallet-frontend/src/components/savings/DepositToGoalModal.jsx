@@ -6,9 +6,13 @@ const DepositToGoalModal = ({ goalId, close, refreshGoals }) => {
 
   const deposit = async () => {
     try {
-      await axios.post("/savings/deposit", {
+      await axios.post("http://localhost:5000/api/savings/deposit", {
         goalId,
         amount: Number(amount)
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
       });
 
       refreshGoals();

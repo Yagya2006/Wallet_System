@@ -36,6 +36,9 @@ const handleLogout = () => {
           <NavLink to="/history" className={({ isActive }) => isActive ? "active" : ""}>
   Transaction History
 </NavLink>
+       <NavLink to="/savings" className={({ isActive }) => isActive ? "active" : ""}>
+  Savings
+</NavLink>
 
           <Link to="/profile">Profile</Link>
           <span onClick={handleLogout} className="logout-link">
