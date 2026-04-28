@@ -45,7 +45,7 @@ const res = await axios.get(
 
       {showCreateModal && (
         <CreateGoalModal
-          close={() => setShowCreateModal(false)}
+          onClose={() => setShowCreateModal(false)}
           refreshGoals={loadGoals}
         />
       )}

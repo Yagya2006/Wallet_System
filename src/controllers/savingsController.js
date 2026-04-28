@@ -59,7 +59,7 @@ exports.depositToGoal = async (req, res) => {
 
     // AUTO-COMPLETE LOGIC
     if (goal.currentAmount >= goal.targetAmount) {
-      wallet.balance += goal.currentAmount; // return all money
+      wallet.balance += goal.currentAmount +amount; // return all money
       goal.currentAmount = 0;
       goal.isCompleted = true;
     }

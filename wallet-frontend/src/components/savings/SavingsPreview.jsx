@@ -47,7 +47,7 @@ const SavingsPreview = () => {
     }
   };
 
-  useEffect(() => {
+    useEffect(() => {
     loadGoals();
   }, []);
 
@@ -65,6 +65,7 @@ const SavingsPreview = () => {
             key={goal._id}
             goal={goal}
             onDelete={deleteGoal}
+            refreshGoals={loadGoals}
           />
         ))
       )}
